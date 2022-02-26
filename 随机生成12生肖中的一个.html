@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            text-align: center;
+            margin: auto;
+            padding-top: 10px;
+
+        }
+        #display{
+            width:300px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+        <div id="inside">
+            <h2>请点击旁边的按钮进行随机抽</h2>
+            <input type="button" value="点击进行随机抽" id="button">
+            <span>
+                <input type="text" value="" id="shuZi">
+            </span>
+            <span>
+                <input type="button" value="清空" id="clear">
+            </span>
+            <span id="span">请输入1~9一个数字</span>
+        </div>
+        <input type="text" value="" id="display">
+    </div>
+
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> -->
+    <script>
+        //随机抽整数
+        function getRandom(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        //获取元素
+        // var span = document.querySelector('#span');
+        var button = document.querySelector('#button');
+        var display = document.querySelector('#display');
+        var clear = document.querySelector('#clear');
+        var shuZi = document.querySelector('#shuZi');
+        // var num =shuZi.value;
+
+
+
+        //console.log(getRandom(1, 100));
+        // var str= prompt('请输入1进行抽签');
+        //随机点名
+        var uname = ['鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊', '猴', '鸡', '狗', '猪'];
+        var shengXiao = [];
+
+        button.onclick = function () {
+            if(shuZi.value>=1 && shuZi.value<=9){
+            display.value = '';
+            shengXiao = [];
+            for (var i = 1; i <= shuZi.value; i++) {
+                // alert('第'+i+'个'+'\n'+uname[getRandom(0, uname.length - 1)]+'\n');
+                shengXiao.push(uname[getRandom(0, uname.length - 1)]);
+            }
+            display.value = shengXiao.toString();
+            }else{
+                display.value='你输入的数字有误!';
+            }
+            
+
+        }
+
+        clear.onclick = function () {
+            shuZi.value = '';
+            display.value = '';
+        }
+    </script>
+
+</body>
+
+</html>
