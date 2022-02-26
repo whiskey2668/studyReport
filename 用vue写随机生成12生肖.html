@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            text-align: center;
+            margin: auto;
+            padding-top: 10px;
+
+        }
+
+        #display {
+            width: 300px;
+        }
+
+        .meycolor {
+            color: green;
+        }
+
+        .mencolor {
+            color: red;
+        }
+        .metcolor{
+            color: coral;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="inside">
+            <h2>请点击旁边的按钮进行随机抽</h2>
+            <input type="button" v-model="inputValue" @click="chou" id="button">
+            <span>
+                <input type="text" v-model="shuZiValue"  id="shuZi" placeholder="请输入1~9任意一个数字">
+            </span>
+            <span>
+                <input type="button" v-model="clearValue" @click="clear" id="clear">
+            </span>
+            <span id="span" :class="{meycolor:isChangeColor,mencolor:isChangeColor2}">{{message}}</span>
+        </div>
+        <span>
+            <input type="text" v-model="displayValue" id="display"> 
+            <span :class="{metcolor:isChangeColor}">{{message2}}</span>
+        </span>     
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+    <script>
+        //随机去一个
+        // function getRandom(min, max) {
+        //     return Math.floor(Math.random() * (max - min + 1)) + min;
+        // }
+
+
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                inputValue: '点击进行随机抽',
+                shuZiValue: '',
+                clearValue: '清空',
+                displayValue: '',
+                shengXiao: [],
+                uname: ['鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊', '猴', '鸡', '狗', '猪'],
+                message: '',
+                isChangeColor: false,
+                isChangeColor2: false,
+                message2:'',
+            },
+            methods: {
+                chou: function () {
+                    if (this.shuZiValue >= 1 && this.shuZiValue <= 9) {
+                        this.displayValue = '';
+                        this.shengXiao = [];
+                        function getRandom(min, max) {
+                            return Math.floor(Math.random() * (max - min + 1)) + min;
+                        }
+                        for (var i = 1; i <= this.shuZiValue; i++) {
+                            this.shengXiao.push(this.uname[getRandom(0, this.uname.length - 1)]);
+                        }
+                        this.displayValue = this.shengXiao.toString();
+                        this.isChangeColor2 = false;
+                        this.isChangeColor = true;
+                        this.message='输入正确';
+                        this.message2='祝你抽到你心水的那一个';
+
+                    } else {
+                        this.message='输入的格式有错误';
+                        this.isChangeColor = false;
+                        this.isChangeColor2 = true;
+                        
+
+                    }
+
+                },
+                clear: function () {
+                    this.shuZiValue = '';
+                    this.displayValue = '';
+                    this.message='';
+                    this.message2='';
+                    this.isChangeColor=false;
+                    this.isChangeColor2=false;
+                }
+
+            }
+        })
+
+
+
+
+    </script>
+
+</body>
+
+</html>
